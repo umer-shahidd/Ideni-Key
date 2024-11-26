@@ -1,0 +1,6 @@
+module Pods_Idenikey_IdenikeyTests {
+  umbrella header "Pods-Idenikey-IdenikeyTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

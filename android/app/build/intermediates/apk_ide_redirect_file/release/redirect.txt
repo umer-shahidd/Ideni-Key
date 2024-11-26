@@ -1,0 +1,2 @@
+#- File Locator -
+listingFile=../../../../../../../../../Desktop/Projects/ideniKey/app/idenikey-main-2/android/app/release/release/output-metadata.json

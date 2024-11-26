@@ -1,0 +1,17 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "assets/fonts/Bicyclette-Bold.ttf",
+      "sha1": "32528bf36d0931d859aaa5a9e31abbbf899eae0f"
+    },
+    {
+      "path": "assets/fonts/Bicyclette-Regular.ttf",
+      "sha1": "3a4d2652cc11175fad1f4bb8e4cfc48c639fa0db"
+    },
+    {
+      "path": "assets/fonts/FontsFree-Net-All-Round-Gothic-W01-Book.ttf",
+      "sha1": "418276339380bc76ba4415a83f0496dbbf1cfc32"
+    }
+  ]
+}

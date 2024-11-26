@@ -1,0 +1,20 @@
+{
+  "version": 3,
+  "artifactType": {
+    "type": "PROCESSED_RES",
+    "kind": "Directory"
+  },
+  "applicationId": "com.idenikey",
+  "variantName": "release",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "attributes": [],
+      "versionCode": 35,
+      "versionName": "2.9.5",
+      "outputFile": "resources-release.ap_"
+    }
+  ],
+  "elementType": "File"
+}
