@@ -90,9 +90,8 @@ const CameraScreen = () => {
                 style={styles.preview}
                 focusable={true}
                 zoom={zoom}
-                maxZoom={10}
+                maxZoom={3}
                 focusDepth={1}
-                
             >
 
                 <View style={styles.overlay}>
@@ -167,8 +166,6 @@ const styles = StyleSheet.create({
         borderRadius: 50,
         justifyContent: 'center',
         alignItems: 'center',
-
-
     },
     capture: {
         height: 70,
