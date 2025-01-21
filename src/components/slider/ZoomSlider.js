@@ -10,17 +10,17 @@ const ZoomSlider = ({ returnValue }) => {
 
     const onPressMinus = () => {
         if (value > 0) {
-            setValue(value - 1)
-            returnValue(value - 1)
+            setValue(value - 0.2)
+            returnValue(value - 0.2)
         }
 
     }
 
 
     const onPressPlus = () => {
-        if (value < 3) {
-            returnValue(value + 1);
-            setValue(value + 1)
+        if (value < 1) {
+            returnValue(value + 0.2);
+            setValue(value + 0.2)
         }
     }
     return (
@@ -31,12 +31,13 @@ const ZoomSlider = ({ returnValue }) => {
             </TouchableOpacity>
 
             <Slider style={styles.slider}
+            
                 thumbTintColor={COLORS.primaryColor}
                 minimumTrackTintColor={COLORS.primaryColor}
                 vertical={false}
-                step={0.00001}
+                step={0.01}
                 value={value}
-                maximumValue={3}
+                maximumValue={1}
                 minimumValue={0}
                 onValueChange={(number) => {
                     setValue(number)

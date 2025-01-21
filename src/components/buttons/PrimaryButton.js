@@ -25,9 +25,10 @@ const styles = StyleSheet.create({
     },
     text: {
         color: COLORS.white,
-        fontSize: 22,
+        fontSize: 20,
         fontWeight: '600',
-        fontFamily: 'Bicyclette-Bold'
+        fontFamily: 'Bicyclette-Bold',
+        textAlign: 'center'
 
     }
 })

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, ImageBackground, SafeAreaView, Image, Dimensions, FlatList, Alert,TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, ImageBackground, SafeAreaView, Image, Dimensions, FlatList, Alert, TouchableOpacity } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
 import BGImage from '../assets/images/bodyBg.jpg';
 import LOGO from '../assets/images/idenikeyLogo.png'
@@ -11,14 +11,10 @@ import RNFS from 'react-native-fs'
 import { FindKey } from '../hooks/api/findkey';
 import SearchingAnimation from '../assets/images/findingYourKey.gif'
 import { Screens } from '../navigations/Screens';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setSecondImageFalse } from '../store/slices/imageSlice';
 
 const { width, height } = Dimensions.get('screen');
-
-
-
-
 
 
 const KeyResult = () => {
@@ -28,21 +24,24 @@ const KeyResult = () => {
     const localPaths = route.params
     const [data, setData] = useState([])
     const [loading, setLoading] = useState(false)
+    const [key_Id, setKeyId] = useState(0)
     const navigation = useNavigation();
     const dispatch = useDispatch()
+    const {firstPhoto, secondPhoto} = useSelector( state => state.photos)
 
 
     const FindKeyCheck = async () => {
         setLoading(true);
         try {
-            const result = await FindKey(`${RNFS.DocumentDirectoryPath}/image_1.jpg`, localPaths.url);
-            console.log('Full Result: ', result.records);
+            const result = await FindKey(firstPhoto, secondPhoto);
+            console.log('Full Result: ', result?.parsedData.records);
 
             // Limit the results to the first 5
-            const limitedResults = result.ranking.slice(0, 5);
+            const limitedResults = result?.parsedData.ranking.slice(0, 5);
             console.log('Limited Result: ', limitedResults);
 
             setData(limitedResults);
+            setKeyId(result?.keyId)
             setLoading(false);
             dispatch(setSecondImageFalse());
         } catch (error) {
@@ -74,6 +73,11 @@ const KeyResult = () => {
     }
     const onPressLogo = () => {
         navigation.navigate(Screens.welcomScreen)
+    }
+    const onPressKeyNotIntheResult = () => {
+        navigation.navigate(Screens.FeedBackScreen, {
+            id: key_Id,
+        })
     }
 
 
@@ -108,27 +112,46 @@ const KeyResult = () => {
 
                     </View>
                     <FlatList
+                    
                         refreshing={true}
                         ref={flatListRef}
                         showsHorizontalScrollIndicator={false}
                         pagingEnabled
                         horizontal={true}
+                     
                         data={data}
                         keyExtractor={(item, index) => index.toString()}
                         renderItem={({ item, index }) => (
                             <View style={styles.viewBox}>
                                 <Text style={styles.imageNumber}>{item.productid}</Text>
-                                <Image source={{ uri: item.image }} resizeMode='contain' style={{ width: '100%', height: '70%', borderWidth: 1, borderColor: COLORS.white, borderRadius: 10, }} />
+                                <Image source={{ uri: item.image }} resizeMode='contain' style={{ width: 300, height: 300, borderWidth: 1, borderColor: COLORS.white, borderRadius: 10, }} />
                                 <PrimaryButton text={'Buy Now'} onPressFunction={() => navigation.navigate('CLK', {
                                     source: item.url
                                 })} />
                             </View>
                         )}
+                        onMomentumScrollEnd={(event) => {
+                            const index = Math.round(
+                                event.nativeEvent.contentOffset.x / width
+                            );
+                            setCurrentIndex(index);
+                        }}
                     />
 
                 </View>
+                <View style={styles.buttonsContainer}>
+                    <View style={{ width: '50%' }}>
+                        <PrimaryButton text={'Find a new key'} onPressFunction={onPressFindNewKey} />
+                    </View>
+                    <View style={{ width: '50%' }}>
+                        <PrimaryButton text={'Key not in the results?'} onPressFunction={onPressKeyNotIntheResult} />
+                    </View>
 
-                <PrimaryButton text={'Find a new key'} onPressFunction={onPressFindNewKey} />
+
+
+                </View>
+
+
 
 
 
@@ -162,7 +185,7 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
     },
-    
+
     animationloading: {
         position: 'absolute',
         zIndex: 1,
@@ -200,6 +223,12 @@ const styles = StyleSheet.create({
         fontFamily: 'Bicyclette-Bold',
         fontSize: 18,
     },
+    buttonsContainer: {
+        width: '100%',
+        height: '10%',
+        flexDirection: 'row'
+
+    }
 
 
 })

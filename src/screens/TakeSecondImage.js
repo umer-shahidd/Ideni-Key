@@ -16,6 +16,7 @@ import instructionSlider from '../components/instructions/InstructionSlider';
 import InstructionSlider from '../components/instructions/InstructionSlider';
 import { useDispatch } from 'react-redux';
 import { setSecondImagetrue } from '../store/slices/imageSlice';
+import { setFirstImage, setSecondImage } from '../store/slices/PictureSlice';
 
 const TakeSecondImage = () => {
     const navigation = useNavigation();
@@ -28,8 +29,11 @@ const TakeSecondImage = () => {
         navigation.navigate(Screens.cameraScreen);
     }
     const onPressLogo = () => {
+        dispatch(setFirstImage(null))
+        dispatch(setSecondImage(null))
         navigation.navigate(Screens.welcomScreen)
     }
+
     return (
         <ImageBackground source={BGImage} resizeMode='repeat' style={styles.container}>
             <SafeAreaView style={styles.innerContainer}>

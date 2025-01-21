@@ -6,6 +6,7 @@ INJECTED from /Users/kashif/Documents/GitHub/Ideni-Key/android/app/src/main/Andr
 INJECTED from /Users/kashif/Documents/GitHub/Ideni-Key/android/app/src/main/AndroidManifest.xml:1:1-29:12
 MERGED from [com.facebook.react:flipper-integration:0.73.6] /Users/kashif/.gradle/caches/transforms-3/e02805435725bec767ba185544da6439/transformed/jetified-flipper-integration-0.73.6-release/AndroidManifest.xml:2:1-7:12
 MERGED from [:react-native-vector-icons] /Users/kashif/Documents/GitHub/Ideni-Key/node_modules/react-native-vector-icons/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:2:1-7:12
+MERGED from [:react-native-community_netinfo] /Users/kashif/Documents/GitHub/Ideni-Key/node_modules/@react-native-community/netinfo/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:2:1-10:12
 MERGED from [:react-native-community_slider] /Users/kashif/Documents/GitHub/Ideni-Key/node_modules/@react-native-community/slider/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:2:1-7:12
 MERGED from [:react-native-masked-view_masked-view] /Users/kashif/Documents/GitHub/Ideni-Key/node_modules/@react-native-masked-view/masked-view/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:2:1-7:12
 MERGED from [:react-native-camera] /Users/kashif/Documents/GitHub/Ideni-Key/node_modules/react-native-camera/android/build/intermediates/merged_manifest/generalRelease/AndroidManifest.xml:2:1-16:12
@@ -261,6 +262,8 @@ MERGED from [com.facebook.react:flipper-integration:0.73.6] /Users/kashif/.gradl
 MERGED from [com.facebook.react:flipper-integration:0.73.6] /Users/kashif/.gradle/caches/transforms-3/e02805435725bec767ba185544da6439/transformed/jetified-flipper-integration-0.73.6-release/AndroidManifest.xml:5:5-44
 MERGED from [:react-native-vector-icons] /Users/kashif/Documents/GitHub/Ideni-Key/node_modules/react-native-vector-icons/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:5:5-44
 MERGED from [:react-native-vector-icons] /Users/kashif/Documents/GitHub/Ideni-Key/node_modules/react-native-vector-icons/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:5:5-44
+MERGED from [:react-native-community_netinfo] /Users/kashif/Documents/GitHub/Ideni-Key/node_modules/@react-native-community/netinfo/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:5:5-44
+MERGED from [:react-native-community_netinfo] /Users/kashif/Documents/GitHub/Ideni-Key/node_modules/@react-native-community/netinfo/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:5:5-44
 MERGED from [:react-native-community_slider] /Users/kashif/Documents/GitHub/Ideni-Key/node_modules/@react-native-community/slider/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:5:5-44
 MERGED from [:react-native-community_slider] /Users/kashif/Documents/GitHub/Ideni-Key/node_modules/@react-native-community/slider/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:5:5-44
 MERGED from [:react-native-masked-view_masked-view] /Users/kashif/Documents/GitHub/Ideni-Key/node_modules/@react-native-masked-view/masked-view/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:5:5-44
@@ -505,6 +508,22 @@ MERGED from [com.google.android.odml:image:1.0.0-beta1] /Users/kashif/.gradle/ca
 		INJECTED from /Users/kashif/Documents/GitHub/Ideni-Key/android/app/src/main/AndroidManifest.xml
 	android:minSdkVersion
 		INJECTED from /Users/kashif/Documents/GitHub/Ideni-Key/android/app/src/main/AndroidManifest.xml
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from [:react-native-community_netinfo] /Users/kashif/Documents/GitHub/Ideni-Key/node_modules/@react-native-community/netinfo/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:7:5-79
+MERGED from [androidx.media3:media3-exoplayer:1.4.1] /Users/kashif/.gradle/caches/transforms-3/1427a1b6e93dca60aa3bb0ca3a5ab1f9/transformed/jetified-media3-exoplayer-1.4.1/AndroidManifest.xml:22:5-79
+MERGED from [androidx.media3:media3-exoplayer:1.4.1] /Users/kashif/.gradle/caches/transforms-3/1427a1b6e93dca60aa3bb0ca3a5ab1f9/transformed/jetified-media3-exoplayer-1.4.1/AndroidManifest.xml:22:5-79
+MERGED from [androidx.media3:media3-common:1.4.1] /Users/kashif/.gradle/caches/transforms-3/2f97d4d1c9f7dff9acc55a9c22b84df7/transformed/jetified-media3-common-1.4.1/AndroidManifest.xml:22:5-79
+MERGED from [androidx.media3:media3-common:1.4.1] /Users/kashif/.gradle/caches/transforms-3/2f97d4d1c9f7dff9acc55a9c22b84df7/transformed/jetified-media3-common-1.4.1/AndroidManifest.xml:22:5-79
+MERGED from [com.google.android.datatransport:transport-backend-cct:3.1.8] /Users/kashif/.gradle/caches/transforms-3/6bc482e8b4a77d076310679e20c19b56/transformed/jetified-transport-backend-cct-3.1.8/AndroidManifest.xml:24:5-79
+MERGED from [com.google.android.datatransport:transport-backend-cct:3.1.8] /Users/kashif/.gradle/caches/transforms-3/6bc482e8b4a77d076310679e20c19b56/transformed/jetified-transport-backend-cct-3.1.8/AndroidManifest.xml:24:5-79
+MERGED from [com.google.android.datatransport:transport-runtime:3.1.8] /Users/kashif/.gradle/caches/transforms-3/32dfa9c01d154c22dcb991d3a5b36201/transformed/jetified-transport-runtime-3.1.8/AndroidManifest.xml:22:5-79
+MERGED from [com.google.android.datatransport:transport-runtime:3.1.8] /Users/kashif/.gradle/caches/transforms-3/32dfa9c01d154c22dcb991d3a5b36201/transformed/jetified-transport-runtime-3.1.8/AndroidManifest.xml:22:5-79
+	android:name
+		ADDED from [:react-native-community_netinfo] /Users/kashif/Documents/GitHub/Ideni-Key/node_modules/@react-native-community/netinfo/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:7:22-76
+uses-permission#android.permission.ACCESS_WIFI_STATE
+ADDED from [:react-native-community_netinfo] /Users/kashif/Documents/GitHub/Ideni-Key/node_modules/@react-native-community/netinfo/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:8:5-76
+	android:name
+		ADDED from [:react-native-community_netinfo] /Users/kashif/Documents/GitHub/Ideni-Key/node_modules/@react-native-community/netinfo/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:8:22-73
 uses-feature#android.hardware.camera
 ADDED from [:react-native-camera] /Users/kashif/Documents/GitHub/Ideni-Key/node_modules/react-native-camera/android/build/intermediates/merged_manifest/generalRelease/AndroidManifest.xml:9:5-11:36
 	android:required
@@ -543,16 +562,6 @@ ADDED from [:react-native-webview] /Users/kashif/Documents/GitHub/Ideni-Key/node
 		ADDED from [:react-native-webview] /Users/kashif/Documents/GitHub/Ideni-Key/node_modules/react-native-webview/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:11:13-37
 	android:name
 		ADDED from [:react-native-webview] /Users/kashif/Documents/GitHub/Ideni-Key/node_modules/react-native-webview/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:9:13-83
-uses-permission#android.permission.ACCESS_NETWORK_STATE
-ADDED from [androidx.media3:media3-exoplayer:1.4.1] /Users/kashif/.gradle/caches/transforms-3/1427a1b6e93dca60aa3bb0ca3a5ab1f9/transformed/jetified-media3-exoplayer-1.4.1/AndroidManifest.xml:22:5-79
-MERGED from [androidx.media3:media3-common:1.4.1] /Users/kashif/.gradle/caches/transforms-3/2f97d4d1c9f7dff9acc55a9c22b84df7/transformed/jetified-media3-common-1.4.1/AndroidManifest.xml:22:5-79
-MERGED from [androidx.media3:media3-common:1.4.1] /Users/kashif/.gradle/caches/transforms-3/2f97d4d1c9f7dff9acc55a9c22b84df7/transformed/jetified-media3-common-1.4.1/AndroidManifest.xml:22:5-79
-MERGED from [com.google.android.datatransport:transport-backend-cct:3.1.8] /Users/kashif/.gradle/caches/transforms-3/6bc482e8b4a77d076310679e20c19b56/transformed/jetified-transport-backend-cct-3.1.8/AndroidManifest.xml:24:5-79
-MERGED from [com.google.android.datatransport:transport-backend-cct:3.1.8] /Users/kashif/.gradle/caches/transforms-3/6bc482e8b4a77d076310679e20c19b56/transformed/jetified-transport-backend-cct-3.1.8/AndroidManifest.xml:24:5-79
-MERGED from [com.google.android.datatransport:transport-runtime:3.1.8] /Users/kashif/.gradle/caches/transforms-3/32dfa9c01d154c22dcb991d3a5b36201/transformed/jetified-transport-runtime-3.1.8/AndroidManifest.xml:22:5-79
-MERGED from [com.google.android.datatransport:transport-runtime:3.1.8] /Users/kashif/.gradle/caches/transforms-3/32dfa9c01d154c22dcb991d3a5b36201/transformed/jetified-transport-runtime-3.1.8/AndroidManifest.xml:22:5-79
-	android:name
-		ADDED from [androidx.media3:media3-exoplayer:1.4.1] /Users/kashif/.gradle/caches/transforms-3/1427a1b6e93dca60aa3bb0ca3a5ab1f9/transformed/jetified-media3-exoplayer-1.4.1/AndroidManifest.xml:22:22-76
 uses-permission#com.android.vending.BILLING
 ADDED from [com.android.billingclient:billing:7.0.0] /Users/kashif/.gradle/caches/transforms-3/90109fa7e1baee9eb8da57f04fb26b26/transformed/jetified-billing-7.0.0/AndroidManifest.xml:10:5-67
 	android:name

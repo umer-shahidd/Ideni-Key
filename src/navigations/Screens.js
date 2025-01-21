@@ -7,5 +7,7 @@ export const Screens = {
     instructionScreen : 'InstructionScreen',
     TakesecondPhoto: 'TakeSecondphoto',
     KeyResult : 'keyResult',
-    WebView : 'WebViewScreen'
+    WebView : 'WebViewScreen',
+    FeedBackScreen: 'FeedBackScreen',
+    viewImagesScreen : 'ViewImagesScreen'
 }

@@ -12,10 +12,13 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Slider from '@react-native-community/slider';
 import instructionSlider from '../components/instructions/InstructionSlider';
 import InstructionSlider from '../components/instructions/InstructionSlider';
+import { useDispatch } from 'react-redux';
+import { setFirstImage, setSecondImage } from '../store/slices/PictureSlice';
 
 const TakePictureScreen = () => {
     const navigation = useNavigation();
     const [openModel, setOpenModel] = useState(true)
+    const dispatch = useDispatch()
 
 
     const onPressTakePhoto = () => {
@@ -29,6 +32,8 @@ const TakePictureScreen = () => {
     }
 
     const onPressLogo = () => {
+        dispatch(setFirstImage(null))
+        dispatch(setSecondImage(null))
         navigation.navigate(Screens.welcomScreen)
     }
     return (

@@ -22,11 +22,7 @@ const WelcomScreen = () => {
 
     const onPressFindAKey = () => {
         navigation.navigate(Screens.takePhotScreen)
-        // detectImage('https://picsum.photos/200').then( (res) => {
-        //     console.log('Result',res)
-        // }).catch( (err) => {
-        //     console.log('Error :', err)
-        // })
+        // navigation.navigate(Screens.viewImagesScreen)
     }
 
 
@@ -40,7 +36,7 @@ const WelcomScreen = () => {
                 <Image source={Logo} resizeMode='contain' style={styles.logoImage} />
                 <Image source={IntroAnimation} resizeMode='contain' style={styles.introAnimation} />
                 <PrimaryButton  text={'FIND A KEY'} onPressFunction={onPressFindAKey}/>
-                <Text style={styles.patentText}>Patent Pending</Text>
+                <Text style={styles.patentText}>Patent pending</Text>
             </SafeAreaView>
             {
                alert ? <CustomeAlert cancelfunction={setAlert}/> : null
@@ -93,7 +89,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center'
     },
     patentText: {
-        fontFamily: 'FontsFree-Net-All-Round-Gothic-W01-Book',
+        fontFamily: 'Round-Gothic',
         color: 'white',
         alignSelf: 'center',
         fontSize: 18

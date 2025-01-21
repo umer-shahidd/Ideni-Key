@@ -16,6 +16,7 @@ import Key from '../components/CameraScreenGuides/Key';
 import TopInstructionText from '../components/CameraScreenGuides/TopInstructionText';
 import BottomInstructionText from '../components/CameraScreenGuides/BottomInstructionText';
 import { useSelector } from 'react-redux';
+import ZoomButton from '../components/zoomButtons/ZoomButton';
 
 const {height} = Dimensions.get('window')
 
@@ -81,6 +82,8 @@ const CameraScreen = () => {
         setTimeout( () =>{
             setShowKey(false)
         } , 3000)
+
+        
     }, [])
 
     return (
@@ -90,10 +93,9 @@ const CameraScreen = () => {
                 style={styles.preview}
                 focusable={true}
                 zoom={zoom}
-                maxZoom={3}
+                maxZoom={1.0}
                 focusDepth={1}
             >
-
                 <View style={styles.overlay}>
                     <TopInstructionText />
                     <TopBorder />
@@ -105,8 +107,10 @@ const CameraScreen = () => {
                     <BottomInstructionText />
                 </View>
             </RNCamera>
+
+            <ZoomButton returnValue={setZoom} />
             
-            <ZoomSlider returnValue={setZoom} />
+            
             <View style={styles.buttonContainer}>
                 <TouchableOpacity style={styles.galleryButton} onPress={openGalleryButton}>
                     <Icon name={'image'} size={40} color={COLORS.primaryColor} />

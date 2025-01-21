@@ -2,7 +2,7 @@ import { ActivityIndicator, Alert, Image, StyleSheet, Text, View, ImageBackgroun
 import React, { useEffect, useRef, useState } from 'react'
 import { COLORS } from '../assets/style/Color'
 import { useNavigation, useRoute } from '@react-navigation/native'
-import RNFS from 'react-native-fs'
+import RNFS, { stat } from 'react-native-fs'
 import { detectImage } from '../hooks/api/model'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Colors } from 'react-native/Libraries/NewAppScreen'
@@ -14,7 +14,9 @@ import { storeImageLocally } from '../services/storeImagelocally'
 import BGImage from '../assets/images/bodyBg.jpg'
 import Icon from 'react-native-vector-icons/Entypo'
 import PrimaryButton from '../components/buttons/PrimaryButton'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import NetInfo from '@react-native-community/netinfo';
+import { setFirstImage, setSecondImage } from '../store/slices/PictureSlice'
 
 
 const { height, width } = Dimensions.get('window')
@@ -28,6 +30,8 @@ const DummyViewScreen = () => {
   const rbsheetRef = useRef();
   const navigation = useNavigation()
   const second = useSelector(state => state.second.second)
+  const dispatch = useDispatch()
+  const {firstPhoto, secondPhoto} = useSelector( state => state.photos)
 
 
   useEffect(() => {
@@ -38,20 +42,64 @@ const DummyViewScreen = () => {
 
 
   const convertToBase64AndDetect = async (localFilePath) => {
+
+    // This is the first procedure
+    // try {
+    //   setloading(true)
+    //   const base64Image = await RNFS.readFile(localFilePath, 'base64');
+    //   // console.log('Base', base64Image)
+    //   detectImage(base64Image).then((res) => {
+
+    //     if (Array.isArray(res.records[0]._objects) && res.records[0]._objects.length > 0) {
+    //       setloading(false)
+    //       if (res.records[0]._objects[0].prob > 0.5) {
+    //         if (second) {
+    //           dispatch(setSecondImage(localFilePath))
+    //           navigation.navigate(Screens.viewImagesScreen, { url: localFilePath })
+    //         } else {
+    //           dispatch(setFirstImage(localFilePath))
+    //           storeImageLocally(localFilePath)
+    //           navigation.navigate(Screens.TakesecondPhoto)
+    //         }
+
+    //       } else {
+    //         rbsheetRef.current.open()
+    //       }
+
+    //     } else {
+    //       setloading(false)
+    //       rbsheetRef.current.open()
+    //     }
+    //   }).catch((err) => {
+    //     setloading(false)
+    //     console.log('Error', err)
+    //   })
+    // } catch (error) {
+    //   console.error('Error converting image to Base64:', error);
+    // }
+
+
     try {
       setloading(true)
       const base64Image = await RNFS.readFile(localFilePath, 'base64');
-      // console.log('Base', base64Image)
+      
       detectImage(base64Image).then((res) => {
 
         if (Array.isArray(res.records[0]._objects) && res.records[0]._objects.length > 0) {
           setloading(false)
           if (res.records[0]._objects[0].prob > 0.5) {
-            if (second) {
-              navigation.navigate(Screens.KeyResult, { url: localFilePath })
-            } else {
-              storeImageLocally(localFilePath)
-              navigation.navigate(Screens.TakesecondPhoto)
+            if (firstPhoto === null) {
+              dispatch(setFirstImage(localFilePath))
+              if(secondPhoto !== null){
+                navigation.navigate(Screens.viewImagesScreen)
+              }else{
+                navigation.navigate(Screens.TakesecondPhoto)
+              }
+            } else if(secondPhoto === null) {
+              dispatch(setSecondImage(localFilePath))
+              navigation.navigate(Screens.viewImagesScreen)
+            }else{
+              navigation.navigate(Screens.viewImagesScreen)
             }
 
           } else {
@@ -81,6 +129,10 @@ const DummyViewScreen = () => {
     navigation.navigate(Screens.cameraScreen)
   }
 
+  const onPressRetake = () => {
+    navigation.navigate(Screens.welcomScreen)
+  }
+
 
 
 
@@ -99,6 +151,22 @@ const DummyViewScreen = () => {
     // FindKeyCheck();
   }, [])
 
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener(state => {
+      if (!state.isConnected) {
+        Alert.alert(
+          "No Internet Connection",
+          "Please check your internet connection and try again.",
+          [{ text: "OK" }]
+        );
+      }
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
 
   return (
     <ImageBackground source={BGImage} resizeMode='repeat' style={styles.container}>
@@ -109,7 +177,6 @@ const DummyViewScreen = () => {
         <View style={styles.border3}></View>
         <View style={styles.border4}></View>
 
-
         {
           loading ? <Image source={ScannerGif} resizeMode='stretch' style={styles.scanner} /> : null
 
@@ -117,6 +184,9 @@ const DummyViewScreen = () => {
         }
         <Image source={{ uri: data.url }} style={styles.iamge} />
       </View>
+
+
+      <PrimaryButton text={'Retake'} onPressFunction={onPressRetake} />
 
 
       <RBSheet
@@ -163,6 +233,7 @@ const styles = StyleSheet.create({
   imageView: {
     width: '80%',
     height: '70%',
+    marginBottom : 40,
     // borderWidth: 1,
     // borderColor: Colors.white,
     borderRadius: 10,
