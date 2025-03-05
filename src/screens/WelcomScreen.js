@@ -21,8 +21,8 @@ const WelcomScreen = () => {
     }
 
     const onPressFindAKey = () => {
-        navigation.navigate(Screens.takePhotScreen)
-        // navigation.navigate(Screens.viewImagesScreen)
+        navigation.navigate(Screens.ImageSelection)
+
     }
 
 

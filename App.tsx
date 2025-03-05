@@ -8,7 +8,6 @@ import WelcomScreen from './src/screens/WelcomScreen';
 import { Provider } from 'react-redux';
 import Store from './src/store/Store';
 // import * as RNIap from 'react-native-iap';
-
 // const itemSubs = ['com.idenikey.subscription']; // Your subscription product ID
 
 const App = () => {

@@ -22,11 +22,9 @@ const TakePictureScreen = () => {
 
 
     const onPressTakePhoto = () => {
-        // navigation.navigate(Screens.KeyResult);
+        navigation.navigate(Screens.ImageSelection)
 
-    navigation.navigate(Screens.cameraScreen, {
-        second: false
-    });
+  
 
 
     }

@@ -13,6 +13,7 @@ import SearchingAnimation from '../assets/images/findingYourKey.gif'
 import { Screens } from '../navigations/Screens';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSecondImageFalse } from '../store/slices/imageSlice';
+import { setFirstImage, setSecondImage } from '../store/slices/PictureSlice';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -73,6 +74,8 @@ const KeyResult = () => {
     }
     const onPressLogo = () => {
         navigation.navigate(Screens.welcomScreen)
+        dispatch(setFirstImage(null));
+        dispatch(setSecondImage(null));
     }
     const onPressKeyNotIntheResult = () => {
         navigation.navigate(Screens.FeedBackScreen, {

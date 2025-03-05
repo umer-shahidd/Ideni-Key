@@ -93,6 +93,7 @@
   <androidx.palette/>
   <androidx.pdf/>
   <androidx.percentlayout/>
+  <androidx.performance/>
   <androidx.preference/>
   <androidx.print/>
   <androidx.privacysandbox.activity/>
@@ -219,6 +220,7 @@
   <com.google.ai.client.generativeai/>
   <com.google.ai.edge.aicore/>
   <com.google.ai.edge.litert/>
+  <com.google.ai.edge.localagents/>
   <com.google.ambient.crossdevice/>
   <com.google.android.ads/>
   <com.google.android.ads.consent/>

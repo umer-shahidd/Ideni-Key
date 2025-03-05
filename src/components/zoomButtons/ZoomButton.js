@@ -15,7 +15,6 @@ const ZoomButton = ({returnValue}) => {
 
     }
 
-
     const onPressPlus = () => {
         if (value < 1) {
             returnValue(value + 0.1);
@@ -30,6 +29,7 @@ const ZoomButton = ({returnValue}) => {
         <TouchableOpacity style={styles.zoomButton} onPress={onPressPlus}>
             <Icon size={20} color={'white'} name='zoom-in' />
         </TouchableOpacity>
+        <View style={styles.seperator}></View>
         <TouchableOpacity style={styles.zoomButton2}  onPress={onPressMinus}>
             <Icon size={20} color={'white'} name='zoom-out' />
         </TouchableOpacity>
@@ -49,12 +49,18 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'column',
         position: 'absolute',
-        right: '2%',
-        top: '40%'
+        right: '3%',
+        top: '40%',
+        zIndex: 1,
+    },
+    seperator: {
+        borderWidth: 0.5,
+        borderColor: 'white',
+        width: '100%'
     },
     zoomButton: {
-        borderBottomColor: COLORS.white,
-        borderBottomWidth: 1,
+        // borderBottomColor: COLORS.white,
+        // borderBottomWidth: 1,
         height: '50%',
         justifyContent: 'center',
         alignItems: 'center'

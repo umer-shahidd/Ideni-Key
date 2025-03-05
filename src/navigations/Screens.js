@@ -9,5 +9,6 @@ export const Screens = {
     KeyResult : 'keyResult',
     WebView : 'WebViewScreen',
     FeedBackScreen: 'FeedBackScreen',
-    viewImagesScreen : 'ViewImagesScreen'
+    viewImagesScreen : 'ViewImagesScreen',
+    ImageSelection : 'ImageSelection'
 }

@@ -15,39 +15,45 @@ import TopBorder from '../components/CameraScreenGuides/TopBorder';
 import Key from '../components/CameraScreenGuides/Key';
 import TopInstructionText from '../components/CameraScreenGuides/TopInstructionText';
 import BottomInstructionText from '../components/CameraScreenGuides/BottomInstructionText';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import ZoomButton from '../components/zoomButtons/ZoomButton';
+import { setFirstImage, setSecondImage } from '../store/slices/PictureSlice';
 
 const {height} = Dimensions.get('window')
-
-
-
 
 const CameraScreen = () => {
     const cameraRef = useRef(null);
     const [imageUri, setImageUri] = useState([]); 
     const navigation = useNavigation();
+    const route = useRoute();
+    const dispatch = useDispatch();
+    const { isFirstImage = true } = route.params || {};
     const [zoom, setZoom] = useState(0)
     const [openModel, setOpenModel] = useState(true)
     const [showKey, setShowKey] = useState(true)
     const second = useSelector(state => state.second.second)
 
-
     useEffect( () => {
         console.log('Second:', second)
     }, [])
-
-
-  
-
 
     const takePicture = async () => {
         if (cameraRef.current) {
             try {
                 const data = await cameraRef.current.takePictureAsync();
                 setImageUri(data.uri);
-                navigation.navigate(Screens.dummyScreen, { url: data.uri})
-                // Set the captured image URI
+                
+                // Set the image in Redux based on which side was selected
+                if (isFirstImage) {
+                    dispatch(setFirstImage(data.uri));
+                } else {
+                    dispatch(setSecondImage(data.uri));
+                }
+
+                navigation.navigate('ImageSelection', {
+                    imageUri: data.uri,
+                    isFirstImage: isFirstImage
+                });
             } catch (err) {
                 console.log('err: ', err);
             }
@@ -72,18 +78,26 @@ const CameraScreen = () => {
             } else if (response.assets) {
                 const selectedImageUri = response.assets[0].uri;
                 setImageUri(selectedImageUri);
-                navigation.navigate(Screens.dummyScreen, { url: selectedImageUri });
+                
+                // Set the image in Redux based on which side was selected
+                if (isFirstImage) {
+                    dispatch(setFirstImage(selectedImageUri));
+                } else {
+                    dispatch(setSecondImage(selectedImageUri));
+                }
+
+                navigation.navigate('ImageSelection', {
+                    imageUri: selectedImageUri,
+                    isFirstImage: isFirstImage
+                });
             }
         });
     }
-
 
     useEffect( () => {
         setTimeout( () =>{
             setShowKey(false)
         } , 3000)
-
-        
     }, [])
 
     return (
@@ -125,10 +139,6 @@ const CameraScreen = () => {
                     <Text style={styles.buttonText}>Instructions</Text>
                 </TouchableOpacity>
             </View>
-
-          
-
-         
         </SafeAreaView>
     );
 };

@@ -147,6 +147,19 @@ const DummyViewScreen = () => {
   useEffect(() => {
     console.log(data)
     convertToBase64AndDetect(data.url)
+    if (firstPhoto === null) {
+      dispatch(setFirstImage(data.url))
+      if(secondPhoto !== null){
+        navigation.navigate(Screens.viewImagesScreen)
+      }else{
+        navigation.navigate(Screens.TakesecondPhoto)
+      }
+    } else if(secondPhoto === null) {
+      dispatch(setSecondImage(data.url))
+      navigation.navigate(Screens.viewImagesScreen)
+    }else{
+      navigation.navigate(Screens.viewImagesScreen)
+    }
     // rbsheetRef.current.open()
     // FindKeyCheck();
   }, [])
@@ -215,6 +228,7 @@ const DummyViewScreen = () => {
         </View>
 
       </RBSheet>
+
 
     </ImageBackground>
   )
