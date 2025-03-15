@@ -144,7 +144,7 @@ const KeyResult = () => {
                 </View>
                 <View style={styles.buttonsContainer}>
                     <View style={{ width: '50%' }}>
-                        <PrimaryButton text={'Find a new key'} onPressFunction={onPressFindNewKey} />
+                        <PrimaryButton text={'Find a new key'} onPressFunction={onPressLogo} />
                     </View>
                     <View style={{ width: '50%' }}>
                         <PrimaryButton text={'Key not in the results?'} onPressFunction={onPressKeyNotIntheResult} />

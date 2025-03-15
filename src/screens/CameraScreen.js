@@ -100,6 +100,22 @@ const CameraScreen = () => {
         } , 3000)
     }, [])
 
+    // Add this function to handle zoom changes with boundaries
+    const handleZoom = (newZoom) => {
+        // Ensure zoom stays within 0-1 range
+        const clampedZoom = Math.min(Math.max(newZoom, 0), 1);
+        setZoom(clampedZoom);
+    };
+
+    // Add zoom in/out functions with fixed increments
+    const zoomIn = () => {
+        handleZoom(zoom + 0.01); // Increase zoom by 0.1
+    };
+
+    const zoomOut = () => {
+        handleZoom(zoom - 0.01); // Decrease zoom by 0.1
+    };
+
     return (
         <SafeAreaView style={styles.container}>
             <RNCamera
@@ -109,6 +125,14 @@ const CameraScreen = () => {
                 zoom={zoom}
                 maxZoom={1.0}
                 focusDepth={1}
+                // Add these props for better zoom control
+                captureAudio={false}
+                androidCameraPermissionOptions={{
+                    title: 'Permission to use camera',
+                    message: 'We need your permission to use your camera',
+                    buttonPositive: 'Ok',
+                    buttonNegative: 'Cancel',
+                }}
             >
                 <View style={styles.overlay}>
                     <TopInstructionText />
@@ -122,7 +146,12 @@ const CameraScreen = () => {
                 </View>
             </RNCamera>
 
-            <ZoomButton returnValue={setZoom} />
+            <ZoomButton 
+                returnValue={handleZoom} 
+                currentZoom={zoom}
+                onZoomIn={zoomIn}
+                onZoomOut={zoomOut}
+            />
             
             
             <View style={styles.buttonContainer}>

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -18,6 +18,20 @@
 		AB20FA3833914D41B76D09C9 /* Bicyclette-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EBDB8637A1FD452CB002BBC6 /* Bicyclette-Regular.ttf */; };
 		F19F98326796AEA36C4429B4 /* libPods-Idenikey-IdenikeyTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 36CF15B95E04E5382C04CC4B /* libPods-Idenikey-IdenikeyTests.a */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXBuildRule section */
+		4BBAF1322D845DC400D42107 /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			fileType = folder.rkassets;
+			inputFiles = (
+			);
+			isEditable = 1;
+			outputFiles = (
+			);
+			script = "# realitytool\n";
+		};
+/* End PBXBuildRule section */
 
 /* Begin PBXContainerItemProxy section */
 		00E356F41AD99517003FC87E /* PBXContainerItemProxy */ = {
@@ -43,10 +57,10 @@
 		36CF15B95E04E5382C04CC4B /* libPods-Idenikey-IdenikeyTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Idenikey-IdenikeyTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Idenikey/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		874E065415AA0A1ACCED6635 /* Pods-Idenikey-IdenikeyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Idenikey-IdenikeyTests.debug.xcconfig"; path = "Target Support Files/Pods-Idenikey-IdenikeyTests/Pods-Idenikey-IdenikeyTests.debug.xcconfig"; sourceTree = "<group>"; };
-		9E912CC18F714AA298CD6B02 /* FontsFree-Net-All-Round-Gothic-W01-Book.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "FontsFree-Net-All-Round-Gothic-W01-Book.ttf"; path = "../assets/fonts/FontsFree-Net-All-Round-Gothic-W01-Book.ttf"; sourceTree = "<group>"; };
-		A250334CDF0D4CF099911897 /* Bicyclette-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Bicyclette-Bold.ttf"; path = "../assets/fonts/Bicyclette-Bold.ttf"; sourceTree = "<group>"; };
+		9E912CC18F714AA298CD6B02 /* FontsFree-Net-All-Round-Gothic-W01-Book.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "FontsFree-Net-All-Round-Gothic-W01-Book.ttf"; path = "../assets/fonts/FontsFree-Net-All-Round-Gothic-W01-Book.ttf"; sourceTree = "<group>"; };
+		A250334CDF0D4CF099911897 /* Bicyclette-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Bicyclette-Bold.ttf"; path = "../assets/fonts/Bicyclette-Bold.ttf"; sourceTree = "<group>"; };
 		DF4CF70A6B001A9B95076108 /* Pods-Idenikey-IdenikeyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Idenikey-IdenikeyTests.release.xcconfig"; path = "Target Support Files/Pods-Idenikey-IdenikeyTests/Pods-Idenikey-IdenikeyTests.release.xcconfig"; sourceTree = "<group>"; };
-		EBDB8637A1FD452CB002BBC6 /* Bicyclette-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Bicyclette-Regular.ttf"; path = "../assets/fonts/Bicyclette-Regular.ttf"; sourceTree = "<group>"; };
+		EBDB8637A1FD452CB002BBC6 /* Bicyclette-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Bicyclette-Regular.ttf"; path = "../assets/fonts/Bicyclette-Regular.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F011C40263847A5B7565C1D3 /* libPods-Idenikey.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Idenikey.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F54DC0A0221D443058293BF6 /* Pods-Idenikey.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Idenikey.release.xcconfig"; path = "Target Support Files/Pods-Idenikey/Pods-Idenikey.release.xcconfig"; sourceTree = "<group>"; };
@@ -120,7 +134,6 @@
 				9E912CC18F714AA298CD6B02 /* FontsFree-Net-All-Round-Gothic-W01-Book.ttf */,
 			);
 			name = Resources;
-			path = "";
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -203,6 +216,7 @@
 				94FB08CA7D5AFDCF0017F823 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
+				4BBAF1322D845DC400D42107 /* PBXBuildRule */,
 			);
 			dependencies = (
 			);
@@ -229,7 +243,7 @@
 				};
 			};
 			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "Idenikey" */;
-			compatibilityVersion = "Xcode 12.0";
+			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -504,7 +518,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -534,7 +548,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -617,10 +631,7 @@
 					"-DFOLLY_USE_LIBCPP=1",
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;
@@ -688,10 +699,7 @@
 					"-DFOLLY_USE_LIBCPP=1",
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;
