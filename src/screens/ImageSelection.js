@@ -65,7 +65,7 @@ const ImageSelection = () => {
           <Image 
             source={{ uri: photo }} 
             style={styles.keyImage} 
-            resizeMode="contain"
+            resizeMode="cover"
           />
         ) : (
           <>
@@ -162,13 +162,13 @@ const styles = StyleSheet.create({
   },
   imageBox: {
     width: '100%',
-    // height: 300,
-    aspectRatio: 1,
+    aspectRatio: 0.7,
     backgroundColor: COLORS.primaryColor,
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
     gap: 10,
+    overflow: 'hidden',
   },
   sideText: {
     color: COLORS.white,
@@ -204,9 +204,10 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   keyImage: {
-    width: '90%',
-    height: '90%',
+    width: '100%',
+    height: '100%',
     borderRadius: 10,
+    resizeMode: 'cover',
   },
 });
 

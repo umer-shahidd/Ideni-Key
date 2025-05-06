@@ -21,6 +21,10 @@ import { setFirstImage, setSecondImage } from '../store/slices/PictureSlice';
 
 const {height} = Dimensions.get('window')
 
+// Add zoom step constant at the top with other constants
+const ZOOM_STEP = 0.005; // Smaller step for smoother zoom
+const MAX_ZOOM = 0.2;    // Limit maximum zoom to prevent extreme jumps
+
 const CameraScreen = () => {
     const cameraRef = useRef(null);
     const [imageUri, setImageUri] = useState([]); 
@@ -100,20 +104,19 @@ const CameraScreen = () => {
         } , 3000)
     }, [])
 
-    // Add this function to handle zoom changes with boundaries
     const handleZoom = (newZoom) => {
-        // Ensure zoom stays within 0-1 range
-        const clampedZoom = Math.min(Math.max(newZoom, 0), 1);
-        setZoom(clampedZoom);
+        // Ensure zoom stays within bounds and moves smoothly
+        const clampedZoom = Math.min(Math.max(newZoom, 0), MAX_ZOOM);
+        // Round to 3 decimal places to prevent floating point issues
+        setZoom(Math.round(clampedZoom * 1000) / 1000);
     };
 
-    // Add zoom in/out functions with fixed increments
     const zoomIn = () => {
-        handleZoom(zoom + 0.01); // Increase zoom by 0.1
+        handleZoom(zoom + ZOOM_STEP);
     };
 
     const zoomOut = () => {
-        handleZoom(zoom - 0.01); // Decrease zoom by 0.1
+        handleZoom(zoom - ZOOM_STEP);
     };
 
     return (
@@ -123,10 +126,13 @@ const CameraScreen = () => {
                 style={styles.preview}
                 focusable={true}
                 zoom={zoom}
-                maxZoom={1.0}
+                maxZoom={MAX_ZOOM}
                 focusDepth={1}
-                // Add these props for better zoom control
                 captureAudio={false}
+                useNativeZoom={true}
+                type={RNCamera.Constants.Type.back}
+                autoFocus={RNCamera.Constants.AutoFocus.on}
+                orientation={RNCamera.Constants.Orientation.portrait}
                 androidCameraPermissionOptions={{
                     title: 'Permission to use camera',
                     message: 'We need your permission to use your camera',
@@ -137,10 +143,15 @@ const CameraScreen = () => {
                 <View style={styles.overlay}>
                     <TopInstructionText />
                     <TopBorder />
-                    {
-                        showKey ? <Key /> : <View style={{height: height/2 }}></View>
-                    }
-                   
+                    {showKey ? (
+                        <View style={[
+                            !isFirstImage && { transform: [{ scaleX: -1 }] }
+                        ]}>
+                            <Key />
+                        </View>
+                    ) : (
+                        <View style={{height: height/2 }}></View>
+                    )}
                     <BottomBorder />
                     <BottomInstructionText />
                 </View>
@@ -151,6 +162,7 @@ const CameraScreen = () => {
                 currentZoom={zoom}
                 onZoomIn={zoomIn}
                 onZoomOut={zoomOut}
+                maxZoom={MAX_ZOOM}
             />
             
             

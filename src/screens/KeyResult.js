@@ -30,22 +30,38 @@ const KeyResult = () => {
     const dispatch = useDispatch()
     const {firstPhoto, secondPhoto} = useSelector( state => state.photos)
 
+    
+
 
     const FindKeyCheck = async () => {
+        const startTime = Date.now();
+        console.log('Starting search process at:', new Date().toISOString());
+        
         setLoading(true);
         try {
-            const result = await FindKey(firstPhoto, secondPhoto);
-            console.log('Full Result: ', result?.parsedData.records);
+            console.log('Image sizes:', {
+                firstPhoto: firstPhoto ? firstPhoto.length : 'not available',
+                secondPhoto: secondPhoto ? secondPhoto.length : 'not available'
+            });
 
-            // Limit the results to the first 5
+            const result = await FindKey(firstPhoto, secondPhoto);
+            console.log('API call duration:', result.duration, 'seconds');
+
             const limitedResults = result?.parsedData.ranking.slice(0, 5);
-            console.log('Limited Result: ', limitedResults);
+            
+            const endTime = Date.now();
+            const totalDuration = (endTime - startTime) / 1000;
+            console.log('Total process duration:', totalDuration, 'seconds');
+            console.log('Number of results:', limitedResults.length);
 
             setData(limitedResults);
-            setKeyId(result?.keyId)
+            setKeyId(result?.keyId);
             setLoading(false);
             dispatch(setSecondImageFalse());
         } catch (error) {
+            const endTime = Date.now();
+            const duration = (endTime - startTime) / 1000;
+            console.error('Error occurred after:', duration, 'seconds');
             Alert.alert('Error', 'Something went wrong');
             setLoading(false);
         }
@@ -101,58 +117,65 @@ const KeyResult = () => {
                 <TouchableOpacity style={styles.logoButton} onPress={onPressLogo}>
                     <Image source={LOGO} resizeMode='contain' style={styles.logImage} />
                 </TouchableOpacity>
+
                 <View style={styles.slider}>
-                    <View style={styles.sliderButtonContainer}>
-                        {
-                            currentIndex == 0 ? (<View style={{ width: '20%' }}></View>) : <PrimaryButton text={'<'} onPressFunction={onPressBack} />
-                        }
+                    {!loading && data && data.length > 0 ? (
+                        <>
+                            <View style={styles.sliderButtonContainer}>
+                                {
+                                    currentIndex == 0 ? (<View style={{ width: '20%' }}></View>) : <PrimaryButton text={'<'} onPressFunction={onPressBack} />
+                                }
 
-                        <Text style={styles.imageNumber}>{currentIndex + 1}/{data.length}</Text>
+                                <Text style={styles.imageNumber}>
+                                    {`${currentIndex + 1}/${data.length}`}
+                                </Text>
 
-                        {
-                            currentIndex == 4 ? (<View style={{ width: '20%' }}></View>) : <PrimaryButton text={'>'} onPressFunction={onPressNext} />
-                        }
-
-                    </View>
-                    <FlatList
-                    
-                        refreshing={true}
-                        ref={flatListRef}
-                        showsHorizontalScrollIndicator={false}
-                        pagingEnabled
-                        horizontal={true}
-                     
-                        data={data}
-                        keyExtractor={(item, index) => index.toString()}
-                        renderItem={({ item, index }) => (
-                            <View style={styles.viewBox}>
-                                <Text style={styles.imageNumber}>{item.productid}</Text>
-                                <Image source={{ uri: item.image }} resizeMode='contain' style={{ width: 300, height: 300, borderWidth: 1, borderColor: COLORS.white, borderRadius: 10, }} />
-                                <PrimaryButton text={'Buy Now'} onPressFunction={() => navigation.navigate('CLK', {
-                                    source: item.url
-                                })} />
+                                {
+                                    currentIndex == 4 ? (<View style={{ width: '20%' }}></View>) : <PrimaryButton text={'>'} onPressFunction={onPressNext} />
+                                }
                             </View>
-                        )}
-                        onMomentumScrollEnd={(event) => {
-                            const index = Math.round(
-                                event.nativeEvent.contentOffset.x / width
-                            );
-                            setCurrentIndex(index);
-                        }}
-                    />
-
+                            <FlatList
+                                refreshing={true}
+                                ref={flatListRef}
+                                showsHorizontalScrollIndicator={false}
+                                pagingEnabled
+                                horizontal={true}
+                                data={data}
+                                keyExtractor={(item, index) => index.toString()}
+                                renderItem={({ item, index }) => (
+                                    <View style={styles.viewBox}>
+                                        <Text style={styles.imageNumber}>{item.productid}</Text>
+                                        <Image source={{ uri: item.image }} resizeMode='contain' style={{ width: 300, height: 300, borderWidth: 1, borderColor: COLORS.white, borderRadius: 10, }} />
+                                        <PrimaryButton text={'Buy Now'} onPressFunction={() => navigation.navigate('CLK', {
+                                            source: item.url
+                                        })} />
+                                    </View>
+                                )}
+                                onMomentumScrollEnd={(event) => {
+                                    const index = Math.round(
+                                        event.nativeEvent.contentOffset.x / width
+                                    );
+                                    setCurrentIndex(index);
+                                }}
+                            />
+                        </>
+                    ) : !loading ? (
+                        <View style={styles.noResultsContainer}>
+                            <Text style={styles.noResultsText}>No results found</Text>
+                        </View>
+                    ) : null}
                 </View>
-                <View style={styles.buttonsContainer}>
-                    <View style={{ width: '50%' }}>
-                        <PrimaryButton text={'Find a new key'} onPressFunction={onPressLogo} />
+                
+                {!loading && data && data.length > 0 ? (
+                    <View style={styles.buttonsContainer}>
+                        <View style={{ width: '50%' }}>
+                            <PrimaryButton text={'Find a new key'} onPressFunction={onPressLogo} />
+                        </View>
+                        <View style={{ width: '50%' }}>
+                            <PrimaryButton text={'Key not in the results?'} onPressFunction={onPressKeyNotIntheResult} />
+                        </View>
                     </View>
-                    <View style={{ width: '50%' }}>
-                        <PrimaryButton text={'Key not in the results?'} onPressFunction={onPressKeyNotIntheResult} />
-                    </View>
-
-
-
-                </View>
+                ) : null}
 
 
 
@@ -231,7 +254,16 @@ const styles = StyleSheet.create({
         height: '10%',
         flexDirection: 'row'
 
-    }
-
-
+    },
+    noResultsContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    noResultsText: {
+        color: 'white',
+        fontFamily: 'Bicyclette-Bold',
+        fontSize: 20,
+        textAlign: 'center',
+    },
 })
