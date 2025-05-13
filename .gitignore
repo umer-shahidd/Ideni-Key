@@ -1,2 +1,5 @@
 node_modules
 android/.gradle/8.3/executionHistory/executionHistory.bin
+/android/app/build/intermediates/intermediary_bundle
+/android/app/build/intermediates/module_bundle/release
+/android/app/release
