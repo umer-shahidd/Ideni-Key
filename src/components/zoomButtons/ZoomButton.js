@@ -39,6 +39,8 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(0,0,0,0.5)',
         borderRadius: 25,
         padding: 5,
+        zIndex: 100,
+        elevation: 100, // For Android
     },
     button: {
         width: 40,

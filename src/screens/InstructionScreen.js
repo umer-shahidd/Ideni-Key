@@ -36,11 +36,11 @@ const InstructionScreen = () => {
                 <View style={styles.wrongContainer}>
                     <View style={styles.imageView}>
                         <InstructionPhoto type={'SEC'} correct={false} img={FarAway} faraway={true} />
-                        <Text style={styles.explainText}>Far Away</Text>
+                        <Text style={styles.explainText}>Far away</Text>
                     </View>
                     <View style={styles.imageView}>
                         <InstructionPhoto type={'SEC'} correct={false} img={UpSide} />
-                        <Text style={styles.explainText}>UpSide Down</Text>
+                        <Text style={styles.explainText}>Upside Down</Text>
                     </View>
                     <View style={styles.imageView}>
                         <InstructionPhoto type={'SEC'} correct={false} img={Blury} />
@@ -61,7 +61,7 @@ const InstructionScreen = () => {
                     </View>
                     <View style={styles.imageView}>
                         <InstructionPhoto type={'SEC'} correct={false} img={Angle} />
-                        <Text style={styles.explainText}>angled</Text>
+                        <Text style={styles.explainText}>Angled</Text>
                     </View>
                 </View>
                 <TouchableOpacity style={styles.continueButton} onPress={() => navigation.navigate(Screens.cameraScreen)}>

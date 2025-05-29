@@ -1,7 +1,7 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/kashif/Documents/GitHub/Ideni-Key/android/app/src/main/AndroidManifest.xml:1:1-29:12
-MERGED from /Users/kashif/Documents/GitHub/Ideni-Key/android/app/src/main/AndroidManifest.xml:1:1-29:12
+ADDED from /Users/kashif/Documents/GitHub/Ideni-Key/android/app/src/main/AndroidManifest.xml:1:1-30:12
+MERGED from /Users/kashif/Documents/GitHub/Ideni-Key/android/app/src/main/AndroidManifest.xml:1:1-30:12
 INJECTED from /Users/kashif/Documents/GitHub/Ideni-Key/android/app/src/debug/AndroidManifest.xml:2:1-9:12
 INJECTED from /Users/kashif/Documents/GitHub/Ideni-Key/android/app/src/debug/AndroidManifest.xml:2:1-9:12
 INJECTED from /Users/kashif/Documents/GitHub/Ideni-Key/android/app/src/debug/AndroidManifest.xml:2:1-9:12
@@ -176,9 +176,9 @@ MERGED from [:react-native-fs] /Users/kashif/Documents/GitHub/Ideni-Key/node_mod
 	android:name
 		ADDED from /Users/kashif/Documents/GitHub/Ideni-Key/android/app/src/main/AndroidManifest.xml:7:22-78
 application
-ADDED from /Users/kashif/Documents/GitHub/Ideni-Key/android/app/src/main/AndroidManifest.xml:9:5-28:19
-MERGED from /Users/kashif/Documents/GitHub/Ideni-Key/android/app/src/main/AndroidManifest.xml:9:5-28:19
-MERGED from /Users/kashif/Documents/GitHub/Ideni-Key/android/app/src/main/AndroidManifest.xml:9:5-28:19
+ADDED from /Users/kashif/Documents/GitHub/Ideni-Key/android/app/src/main/AndroidManifest.xml:9:5-29:19
+MERGED from /Users/kashif/Documents/GitHub/Ideni-Key/android/app/src/main/AndroidManifest.xml:9:5-29:19
+MERGED from /Users/kashif/Documents/GitHub/Ideni-Key/android/app/src/main/AndroidManifest.xml:9:5-29:19
 INJECTED from /Users/kashif/Documents/GitHub/Ideni-Key/android/app/src/debug/AndroidManifest.xml:5:5-8:50
 MERGED from [:react-native-image-picker] /Users/kashif/Documents/GitHub/Ideni-Key/node_modules/react-native-image-picker/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:7:5-17:19
 MERGED from [:react-native-image-picker] /Users/kashif/Documents/GitHub/Ideni-Key/node_modules/react-native-image-picker/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:7:5-17:19
@@ -263,7 +263,9 @@ MERGED from [com.google.android.odml:image:1.0.0-beta1] /Users/kashif/.gradle/ca
 		ADDED from /Users/kashif/Documents/GitHub/Ideni-Key/android/app/src/main/AndroidManifest.xml:10:7-38
 		ADDED from /Users/kashif/Documents/GitHub/Ideni-Key/android/app/src/main/AndroidManifest.xml:10:7-38
 activity#com.idenikey.MainActivity
-ADDED from /Users/kashif/Documents/GitHub/Ideni-Key/android/app/src/main/AndroidManifest.xml:16:7-27:18
+ADDED from /Users/kashif/Documents/GitHub/Ideni-Key/android/app/src/main/AndroidManifest.xml:16:7-28:18
+	android:screenOrientation
+		ADDED from /Users/kashif/Documents/GitHub/Ideni-Key/android/app/src/main/AndroidManifest.xml:22:9-45
 	android:label
 		ADDED from /Users/kashif/Documents/GitHub/Ideni-Key/android/app/src/main/AndroidManifest.xml:18:9-41
 	android:launchMode
@@ -271,21 +273,21 @@ ADDED from /Users/kashif/Documents/GitHub/Ideni-Key/android/app/src/main/Android
 	android:windowSoftInputMode
 		ADDED from /Users/kashif/Documents/GitHub/Ideni-Key/android/app/src/main/AndroidManifest.xml:21:9-51
 	android:exported
-		ADDED from /Users/kashif/Documents/GitHub/Ideni-Key/android/app/src/main/AndroidManifest.xml:22:9-32
+		ADDED from /Users/kashif/Documents/GitHub/Ideni-Key/android/app/src/main/AndroidManifest.xml:23:9-32
 	android:configChanges
 		ADDED from /Users/kashif/Documents/GitHub/Ideni-Key/android/app/src/main/AndroidManifest.xml:19:9-118
 	android:name
 		ADDED from /Users/kashif/Documents/GitHub/Ideni-Key/android/app/src/main/AndroidManifest.xml:17:9-37
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from /Users/kashif/Documents/GitHub/Ideni-Key/android/app/src/main/AndroidManifest.xml:23:9-26:25
+ADDED from /Users/kashif/Documents/GitHub/Ideni-Key/android/app/src/main/AndroidManifest.xml:24:9-27:25
 action#android.intent.action.MAIN
-ADDED from /Users/kashif/Documents/GitHub/Ideni-Key/android/app/src/main/AndroidManifest.xml:24:13-65
+ADDED from /Users/kashif/Documents/GitHub/Ideni-Key/android/app/src/main/AndroidManifest.xml:25:13-65
 	android:name
-		ADDED from /Users/kashif/Documents/GitHub/Ideni-Key/android/app/src/main/AndroidManifest.xml:24:21-62
+		ADDED from /Users/kashif/Documents/GitHub/Ideni-Key/android/app/src/main/AndroidManifest.xml:25:21-62
 category#android.intent.category.LAUNCHER
-ADDED from /Users/kashif/Documents/GitHub/Ideni-Key/android/app/src/main/AndroidManifest.xml:25:13-73
+ADDED from /Users/kashif/Documents/GitHub/Ideni-Key/android/app/src/main/AndroidManifest.xml:26:13-73
 	android:name
-		ADDED from /Users/kashif/Documents/GitHub/Ideni-Key/android/app/src/main/AndroidManifest.xml:25:23-70
+		ADDED from /Users/kashif/Documents/GitHub/Ideni-Key/android/app/src/main/AndroidManifest.xml:26:23-70
 uses-sdk
 INJECTED from /Users/kashif/Documents/GitHub/Ideni-Key/android/app/src/debug/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /Users/kashif/Documents/GitHub/Ideni-Key/android/app/src/debug/AndroidManifest.xml
