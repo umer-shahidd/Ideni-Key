@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image, Dimensions, Platform } from 'react-native';
 import React, { useEffect, useRef, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { RNCamera } from 'react-native-camera';
@@ -21,8 +21,13 @@ import { setFirstImage, setSecondImage } from '../store/slices/PictureSlice';
 
 const {height} = Dimensions.get('window')
 
+const getOrientation = () => {
+    const { width, height } = Dimensions.get('window');
+    return width > height ? 'LANDSCAPE' : 'PORTRAIT';
+  };
+
 // Add zoom step constant at the top with other constants
-const ZOOM_STEP = 0.005; // Smaller step for smoother zoom
+const ZOOM_STEP = 0.001; // Smaller step for smoother zoom
 const MAX_ZOOM = 0.2;    // Limit maximum zoom to prevent extreme jumps
 
 const CameraScreen = () => {
@@ -32,9 +37,10 @@ const CameraScreen = () => {
     const route = useRoute();
     const dispatch = useDispatch();
     const { isFirstImage = true } = route.params || {};
-    const [zoom, setZoom] = useState(0)
+    const [zoom, setZoom] = useState(0.001);
     const [openModel, setOpenModel] = useState(true)
     const [showKey, setShowKey] = useState(true)
+    const [isZooming, setIsZooming] = useState(false);
     const second = useSelector(state => state.second.second)
 
     useEffect( () => {
@@ -99,24 +105,32 @@ const CameraScreen = () => {
     }
 
     useEffect( () => {
+        console.log('getOrientation: ', getOrientation())
         setTimeout( () =>{
             setShowKey(false)
         } , 3000)
-    }, [])
+    }, )
 
     const handleZoom = (newZoom) => {
-        // Ensure zoom stays within bounds and moves smoothly
+        // Optimize zoom calculation for better performance
         const clampedZoom = Math.min(Math.max(newZoom, 0), MAX_ZOOM);
-        // Round to 3 decimal places to prevent floating point issues
-        setZoom(Math.round(clampedZoom * 1000) / 1000);
+        // Use a larger step for Android to make it more responsive
+        const roundedZoom = Platform.OS === 'android' 
+            ? Math.round(clampedZoom * 100) / 100  // Less precise but faster on Android
+            : Math.round(clampedZoom * 1000) / 1000; // More precise for iOS
+        setZoom(roundedZoom);
     };
-
+    
     const zoomIn = () => {
-        handleZoom(zoom + ZOOM_STEP);
+        // Different step sizes for Android and iOS
+        const step = Platform.OS === 'android' ? ZOOM_STEP * 2 : ZOOM_STEP;
+        handleZoom(zoom + step);
     };
-
+    
     const zoomOut = () => {
-        handleZoom(zoom - ZOOM_STEP);
+        // Different step sizes for Android and iOS
+        const step = Platform.OS === 'android' ? ZOOM_STEP * 2 : ZOOM_STEP;
+        handleZoom(zoom - step);
     };
 
     return (
