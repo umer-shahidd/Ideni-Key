@@ -27,7 +27,7 @@ const getOrientation = () => {
   };
 
 // Add zoom step constant at the top with other constants
-const ZOOM_STEP = 0.001; // Smaller step for smoother zoom
+const ZOOM_STEP = 0.01; // Smaller step for smoother zoom
 const MAX_ZOOM = 0.2;    // Limit maximum zoom to prevent extreme jumps
 
 const CameraScreen = () => {
@@ -48,9 +48,14 @@ const CameraScreen = () => {
     }, [])
 
     const takePicture = async () => {
+        const options = {
+            quality: 0.8,
+            orientation: 'portrait',
+
+        }
         if (cameraRef.current) {
             try {
-                const data = await cameraRef.current.takePictureAsync();
+                const data = await cameraRef.current.takePictureAsync(options);
                 setImageUri(data.uri);
                 
                 // Set the image in Redux based on which side was selected
