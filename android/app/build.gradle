@@ -79,7 +79,7 @@ android {
         applicationId "com.idenikey"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 41
+        versionCode 44
         versionName "3.0.1"
         missingDimensionStrategy "store", "play"
         missingDimensionStrategy 'react-native-camera', 'general' 

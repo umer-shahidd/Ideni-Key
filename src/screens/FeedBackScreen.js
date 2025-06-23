@@ -44,6 +44,9 @@ const FeedBackScreen = () => {
                     Alert.alert("Done", result.msg)
                     setText('')
                     navigation.navigate(Screens.welcomScreen)
+                    dispatch(setFirstImage(null));
+                    dispatch(setSecondImage(null));
+
                 } else {
                     Alert.alert('Error', "Already FeedBack Provided on this Key")
                     setText('')
@@ -70,25 +73,25 @@ const FeedBackScreen = () => {
             <View style={{ flex: 1 }}>
                 <ImageBackground source={BGImage} resizeMode='repeat' style={styles.container}>
                     <KeyboardAwareScrollView style={styles.scrollView}>
-                       
-                            <TouchableOpacity style={styles.logoButton} onPress={onPressLogo}>
-                                <Image source={LOGO} resizeMode='contain' style={styles.logImage} />
-                            </TouchableOpacity>
 
-                            <View style={styles.upperTextContainer}>
-                                <Text style={styles.headingText}>WE'D LIKE YOUR HELP!</Text>
-                                <Text style={styles.normalText}>Please tell us as much as you can about this key</Text>
-                            </View>
-                            <TextInput
-                                style={styles.input}
-                                placeholderTextColor={COLORS.white}
-                                multiline={true}
-                                value={text}
-                                onChangeText={setText}
-                            />
-                            <PrimaryButton text={'SUBMIT'} onPressFunction={onPressSubmit} />
-                            <Text style={styles.patentText}>Patent Pending</Text>
-                        
+                        <TouchableOpacity style={styles.logoButton} onPress={onPressLogo}>
+                            <Image source={LOGO} resizeMode='contain' style={styles.logImage} />
+                        </TouchableOpacity>
+
+                        <View style={styles.upperTextContainer}>
+                            <Text style={styles.headingText}>WE'D LIKE YOUR HELP!</Text>
+                            <Text style={styles.normalText}>Please tell us as much as you can about this key</Text>
+                        </View>
+                        <TextInput
+                            style={styles.input}
+                            placeholderTextColor={COLORS.white}
+                            multiline={true}
+                            value={text}
+                            onChangeText={setText}
+                        />
+                        <PrimaryButton text={'SUBMIT'} onPressFunction={onPressSubmit} />
+                        <Text style={styles.patentText}>Patent Pending</Text>
+
                     </KeyboardAwareScrollView>
                 </ImageBackground>
             </View>

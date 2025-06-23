@@ -4,7 +4,7 @@
             "outputFile": "com.idenikey.app-mergeDebugResources-49:/values-v16/values-v16.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\hp\\.gradle\\caches\\transforms-3\\b3627ca143232ec2ceb6e319eb18971d\\transformed\\appcompat-1.6.1\\res\\values-v16\\values-v16.xml",
+                    "source": "/Users/kashif/.gradle/caches/transforms-3/b3627ca143232ec2ceb6e319eb18971d/transformed/appcompat-1.6.1/res/values-v16/values-v16.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
