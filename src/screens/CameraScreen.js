@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image, Dimensions, Platform } from 'react-native';
 import React, { useEffect, useRef, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { RNCamera } from 'react-native-camera';
@@ -21,6 +21,15 @@ import { setFirstImage, setSecondImage } from '../store/slices/PictureSlice';
 
 const {height} = Dimensions.get('window')
 
+const getOrientation = () => {
+    const { width, height } = Dimensions.get('window');
+    return width > height ? 'LANDSCAPE' : 'PORTRAIT';
+  };
+
+// Add zoom step constant at the top with other constants
+const ZOOM_STEP = Platform.OS === 'android' ? 0.01 : 0.001; // Smaller step for smoother zoom
+const MAX_ZOOM = 0.2;    // Limit maximum zoom to prevent extreme jumps
+
 const CameraScreen = () => {
     const cameraRef = useRef(null);
     const [imageUri, setImageUri] = useState([]); 
@@ -28,9 +37,10 @@ const CameraScreen = () => {
     const route = useRoute();
     const dispatch = useDispatch();
     const { isFirstImage = true } = route.params || {};
-    const [zoom, setZoom] = useState(0)
+    const [zoom, setZoom] = useState(0.001);
     const [openModel, setOpenModel] = useState(true)
     const [showKey, setShowKey] = useState(true)
+    const [isZooming, setIsZooming] = useState(false);
     const second = useSelector(state => state.second.second)
 
     useEffect( () => {
@@ -38,9 +48,14 @@ const CameraScreen = () => {
     }, [])
 
     const takePicture = async () => {
+        const options = {
+            quality: 0.8,
+            orientation: 'portrait',
+
+        }
         if (cameraRef.current) {
             try {
-                const data = await cameraRef.current.takePictureAsync();
+                const data = await cameraRef.current.takePictureAsync(options);
                 setImageUri(data.uri);
                 
                 // Set the image in Redux based on which side was selected
@@ -95,25 +110,32 @@ const CameraScreen = () => {
     }
 
     useEffect( () => {
+        console.log('getOrientation: ', getOrientation())
         setTimeout( () =>{
             setShowKey(false)
         } , 3000)
-    }, [])
+    }, )
 
-    // Add this function to handle zoom changes with boundaries
     const handleZoom = (newZoom) => {
-        // Ensure zoom stays within 0-1 range
-        const clampedZoom = Math.min(Math.max(newZoom, 0), 1);
-        setZoom(clampedZoom);
+        // Optimize zoom calculation for better performance
+        const clampedZoom = Math.min(Math.max(newZoom, 0), MAX_ZOOM);
+        // Use a larger step for Android to make it more responsive
+        const roundedZoom = Platform.OS === 'android' 
+            ? Math.round(clampedZoom * 100) / 100  // Less precise but faster on Android
+            : Math.round(clampedZoom * 1000) / 1000; // More precise for iOS
+        setZoom(roundedZoom);
     };
-
-    // Add zoom in/out functions with fixed increments
+    
     const zoomIn = () => {
-        handleZoom(zoom + 0.01); // Increase zoom by 0.1
+        // Different step sizes for Android and iOS
+        const step = Platform.OS === 'android' ? ZOOM_STEP * 2 : ZOOM_STEP;
+        handleZoom(zoom + step);
     };
-
+    
     const zoomOut = () => {
-        handleZoom(zoom - 0.01); // Decrease zoom by 0.1
+        // Different step sizes for Android and iOS
+        const step = Platform.OS === 'android' ? ZOOM_STEP * 2 : ZOOM_STEP;
+        handleZoom(zoom - step);
     };
 
     return (
@@ -123,10 +145,13 @@ const CameraScreen = () => {
                 style={styles.preview}
                 focusable={true}
                 zoom={zoom}
-                maxZoom={1.0}
+                maxZoom={MAX_ZOOM}
                 focusDepth={1}
-                // Add these props for better zoom control
                 captureAudio={false}
+                useNativeZoom={true}
+                type={RNCamera.Constants.Type.back}
+                autoFocus={RNCamera.Constants.AutoFocus.on}
+                orientation={RNCamera.Constants.Orientation.portrait}
                 androidCameraPermissionOptions={{
                     title: 'Permission to use camera',
                     message: 'We need your permission to use your camera',
@@ -137,10 +162,15 @@ const CameraScreen = () => {
                 <View style={styles.overlay}>
                     <TopInstructionText />
                     <TopBorder />
-                    {
-                        showKey ? <Key /> : <View style={{height: height/2 }}></View>
-                    }
-                   
+                    {showKey ? (
+                        <View style={[
+                            !isFirstImage && { transform: [{ scaleX: -1 }] }
+                        ]}>
+                            <Key />
+                        </View>
+                    ) : (
+                        <View style={{height: height/2 }}></View>
+                    )}
                     <BottomBorder />
                     <BottomInstructionText />
                 </View>
@@ -151,6 +181,7 @@ const CameraScreen = () => {
                 currentZoom={zoom}
                 onZoomIn={zoomIn}
                 onZoomOut={zoomOut}
+                maxZoom={MAX_ZOOM}
             />
             
             

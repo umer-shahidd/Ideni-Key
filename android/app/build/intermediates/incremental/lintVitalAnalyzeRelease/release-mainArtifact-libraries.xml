@@ -535,6 +535,19 @@
       externalAnnotations="annotations.zip"
       proguardRules="proguard.txt"/>
   <library
+      name="/Users/kashif/Documents/GitHub/Ideni-Key/android@@:bam.tech_react-native-image-resizer::release"
+      jars="/Users/kashif/Documents/GitHub/Ideni-Key/node_modules/@bam.tech/react-native-image-resizer/android/build/.transforms/494f5bc8e2c5307d38ed9b4e405f789c/transformed/out/jars/classes.jar:/Users/kashif/Documents/GitHub/Ideni-Key/node_modules/@bam.tech/react-native-image-resizer/android/build/.transforms/494f5bc8e2c5307d38ed9b4e405f789c/transformed/out/jars/libs/R.jar"
+      resolved="Idenikey:bam.tech_react-native-image-resizer:unspecified"
+      folder="/Users/kashif/Documents/GitHub/Ideni-Key/node_modules/@bam.tech/react-native-image-resizer/android/build/.transforms/494f5bc8e2c5307d38ed9b4e405f789c/transformed/out"
+      manifest="AndroidManifest.xml"
+      resFolder="res"
+      assetsFolder="assets"
+      lintJar="lint.jar"
+      publicResources="public.txt"
+      symbolFile="R.txt"
+      externalAnnotations="annotations.zip"
+      proguardRules="proguard.txt"/>
+  <library
       name="/Users/kashif/Documents/GitHub/Ideni-Key/android@@:react-native-community_netinfo::release"
       jars="/Users/kashif/Documents/GitHub/Ideni-Key/node_modules/@react-native-community/netinfo/android/build/.transforms/fe740e9b719008f87bcda0f457fc4b72/transformed/out/jars/classes.jar:/Users/kashif/Documents/GitHub/Ideni-Key/node_modules/@react-native-community/netinfo/android/build/.transforms/fe740e9b719008f87bcda0f457fc4b72/transformed/out/jars/libs/R.jar"
       resolved="Idenikey:react-native-community_netinfo:unspecified"

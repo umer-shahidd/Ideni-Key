@@ -1,4 +1,4 @@
-import { ImageBackground, StyleSheet, Text, View, SafeAreaView, TouchableOpacity, Image, TextInput, Alert } from 'react-native'
+import { ImageBackground, StyleSheet, Text, View, SafeAreaView, ScrollView, TouchableOpacity, Image, TextInput, Alert, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, Platform } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import BGImage from '../assets/images/bodyBg.jpg';
 import { useNavigation, useRoute } from '@react-navigation/native';
@@ -9,6 +9,9 @@ import PrimaryButton from '../components/buttons/PrimaryButton';
 import { Screens } from '../navigations/Screens';
 import { sendFeedback } from '../hooks/api/feedback';
 import { all } from 'axios';
+import { setFirstImage, setSecondImage } from '../store/slices/PictureSlice';
+import { useDispatch } from 'react-redux';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 
 
@@ -19,12 +22,15 @@ const FeedBackScreen = () => {
     const [text, setText] = useState('')
     const routes = useRoute()
     const params = routes.params
-
+    const dispatch = useDispatch()
 
 
 
     const onPressLogo = () => {
         navigation.navigate(Screens.welcomScreen)
+        setText('')
+        dispatch(setFirstImage(null));
+        dispatch(setSecondImage(null));
     }
 
     const onPressSubmit = async () => {
@@ -34,15 +40,18 @@ const FeedBackScreen = () => {
 
             } else {
                 const result = await sendFeedback(params.id, text)
-                if(result.status ===  1){
+                if (result.status === 1) {
                     Alert.alert("Done", result.msg)
                     setText('')
                     navigation.navigate(Screens.welcomScreen)
-                }else{
+                    dispatch(setFirstImage(null));
+                    dispatch(setSecondImage(null));
+
+                } else {
                     Alert.alert('Error', "Already FeedBack Provided on this Key")
                     setText('')
                 }
-                
+
             }
 
         } catch (err) {
@@ -56,31 +65,39 @@ const FeedBackScreen = () => {
     }, [])
 
     return (
-        <ImageBackground source={BGImage} resizeMode='repeat' style={styles.container}>
-            <SafeAreaView style={styles.innerContainer} >
-                <TouchableOpacity style={styles.logoButton} onPress={onPressLogo}>
-                    <Image source={LOGO} resizeMode='contain' style={styles.logImage} />
-                </TouchableOpacity>
 
-                <View style={styles.upperTextContainer}>
-                    <Text style={styles.headingText}>WE'D LIKE YOUR HELP!</Text>
-                    <Text style={styles.normalText}>Please tell us as much as you can about this key</Text>
-                </View>
-                <TextInput
-                    style={styles.input}
+        <TouchableWithoutFeedback onPress={() => {
+            Keyboard.dismiss();
+            console.log('dismissing keyboard'); // To verify the press is detected
+        }}>
+            <View style={{ flex: 1 }}>
+                <ImageBackground source={BGImage} resizeMode='repeat' style={styles.container}>
+                    <KeyboardAwareScrollView style={styles.scrollView}>
 
-                    placeholderTextColor={COLORS.white}
-                    multiline={true}
-                    value={text}
-                    onChangeText={setText}
-                />
-                <PrimaryButton text={'SUBMIT'} onPressFunction={onPressSubmit} />
-                <Text style={styles.patentText}>Patent Pending</Text>
+                        <TouchableOpacity style={styles.logoButton} onPress={onPressLogo}>
+                            <Image source={LOGO} resizeMode='contain' style={styles.logImage} />
+                        </TouchableOpacity>
 
-            </SafeAreaView>
+                        <View style={styles.upperTextContainer}>
+                            <Text style={styles.headingText}>WE'D LIKE YOUR HELP!</Text>
+                            <Text style={styles.normalText}>Please tell us as much as you can about this key</Text>
+                        </View>
+                        <TextInput
+                            style={styles.input}
+                            placeholderTextColor={COLORS.white}
+                            multiline={true}
+                            value={text}
+                            onChangeText={setText}
+                        />
+                        <PrimaryButton text={'SUBMIT'} onPressFunction={onPressSubmit} />
+                        <Text style={styles.patentText}>Patent Pending</Text>
 
+                    </KeyboardAwareScrollView>
+                </ImageBackground>
+            </View>
+        </TouchableWithoutFeedback>
 
-        </ImageBackground>
+        // </KeyboardAvoidingView>
     )
 }
 
@@ -91,37 +108,40 @@ const styles = StyleSheet.create({
         flex: 1,
         width: '100%',
     },
-    innerContainer: {
-        height: '100%',
-        width: '95%',
-        // backgroundColor: 'green',
-        alignSelf: 'center',
-        alignItems: 'center',
-        justifyContent: 'space-evenly'
+    scrollView: {
+        // flexGrow: 1,
+        paddingVertical: 50,
+        paddingHorizontal: 20,
     },
     logoButton: {
-        height: '10%',
-        width: '600%'
+        height: 80,
+        width: '100%',
+        marginBottom: 20,
+        alignItems: 'center',
     },
     logImage: {
-        width: '100%',
+        width: '80%',
         height: '100%',
+        resizeMode: 'contain',
     },
     upperTextContainer: {
         width: '100%',
-        height: '15%',
+        minHeight: 120,
         justifyContent: 'space-evenly',
         backgroundColor: COLORS.primaryDark,
         borderColor: COLORS.primaryColor,
         borderWidth: 3,
         borderRadius: 15,
-        paddingHorizontal: '10%',
+        paddingHorizontal: '5%',
+        paddingVertical: 15,
+        marginBottom: 20,
     },
     headingText: {
         fontFamily: 'Bicyclette-Bold',
         color: 'white',
         alignSelf: 'center',
         fontSize: 20,
+        marginBottom: 10,
     },
     normalText: {
         color: COLORS.white,
@@ -131,21 +151,21 @@ const styles = StyleSheet.create({
     },
     input: {
         width: '100%',
-        height: '40%',
+        minHeight: 200,
         backgroundColor: COLORS.primaryDark,
         borderWidth: 3,
         borderColor: COLORS.primaryColor,
         borderRadius: 10,
         color: COLORS.white,
-        padding: '5%',
-
+        padding: 15,
+        marginBottom: 20,
+        textAlignVertical: 'top',
     },
     patentText: {
         fontFamily: 'Round-Gothic',
         color: 'white',
         alignSelf: 'center',
-        fontSize: 18
+        fontSize: 18,
+        marginTop: 20,
     }
-
-
 })

@@ -3,28 +3,30 @@ import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { COLORS } from '../../assets/style/Color';
 
-const ZoomButton = ({ returnValue, currentZoom, onZoomIn, onZoomOut }) => {
+const ZoomButton = ({ returnValue, currentZoom, onZoomIn, onZoomOut, maxZoom }) => {
     return (
         <View style={styles.container}>
-
-             <TouchableOpacity 
-                style={styles.button}
+            <TouchableOpacity 
+                style={[
+                    styles.button,
+                    currentZoom >= maxZoom && styles.buttonDisabled
+                ]}
                 onPress={onZoomIn}
-                disabled={currentZoom >= 1}
+                disabled={currentZoom >= maxZoom}
             >
                 <Icon name="plus" size={24} color={COLORS.white} />
             </TouchableOpacity>
 
-            
             <TouchableOpacity 
-                style={styles.button}
+                style={[
+                    styles.button,
+                    currentZoom <= 0 && styles.buttonDisabled
+                ]}
                 onPress={onZoomOut}
                 disabled={currentZoom <= 0}
             >
                 <Icon name="minus" size={24} color={COLORS.white} />
             </TouchableOpacity>
-            
-           
         </View>
     );
 };
@@ -37,6 +39,8 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(0,0,0,0.5)',
         borderRadius: 25,
         padding: 5,
+        zIndex: 100,
+        elevation: 100, // For Android
     },
     button: {
         width: 40,
@@ -46,6 +50,9 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.primaryColor,
         borderRadius: 20,
         margin: 5,
+    },
+    buttonDisabled: {
+        opacity: 0.5,
     },
 });
 

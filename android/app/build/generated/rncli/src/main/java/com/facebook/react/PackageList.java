@@ -11,6 +11,8 @@ import com.facebook.react.shell.MainReactPackage;
 import java.util.Arrays;
 import java.util.ArrayList;
 
+// @bam.tech/react-native-image-resizer
+import com.reactnativeimageresizer.ImageResizerPackage;
 // @react-native-community/netinfo
 import com.reactnativecommunity.netinfo.NetInfoPackage;
 // @react-native-community/slider
@@ -82,6 +84,7 @@ public class PackageList {
   public ArrayList<ReactPackage> getPackages() {
     return new ArrayList<>(Arrays.<ReactPackage>asList(
       new MainReactPackage(mConfig),
+      new ImageResizerPackage(),
       new NetInfoPackage(),
       new ReactSliderPackage(),
       new RNCMaskedViewPackage(),

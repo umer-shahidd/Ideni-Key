@@ -1,73 +1,85 @@
-
 import axios from "axios";
 import RNFS from 'react-native-fs'
 import mime from "mime";
+import ImageResizer from '@bam.tech/react-native-image-resizer';
 
 
 
 
 export const FindKey = async (frontImage, backImage) => {
   const URL = 'https://calik.app/api/findkeyApi';
-  console.log('frontImage: ', frontImage)
-
-  const _Image1 = "file:///" + frontImage.split("file:/").join("");
-  // Create a FormData object
-  const formData = new FormData();
-
-
-  // const _data = `frontKey${frontImage}&backKey${backImage}`
-  // Append the images to formData
-  formData.append('frontKey', {
-    uri: _Image1,      // Local path to the front image
-    type: mime.getType(_Image1),   // MIME type (use 'image/png' if it's a PNG)
-    name: _Image1.split("/").pop(), // Name of the file
-  });
-
-  formData.append('backKey', {
-    uri: _Image1,       // Local path to the back image
-    type: mime.getType(_Image1),   // MIME type
-    name: _Image1.split("/").pop(), // Name of the file
-  });
-  const frontImageBase64 = await convertImageToBase64(frontImage)
-  const backImageBase64 = await convertImageToBase64(backImage)
-
-  // console.log('Base64Image', image)
-
-  // const _data = {
-  //   'frontKey': {
-  //     fileName: 'frontImage.jpg',   // Optional metadata
-  //     fileType: 'image/jpg',        // Optional metadata
-  //     uri : frontImage,    // The actual base64 image data
-  //   },
-  //   'backKey': {    // Optional metadata
-  //     fileType: 'image/jpg',        // Optional metadata
-  //     fileData: backImage,     // The actual base64 image data
-  //   },
-  // };
+  const startTime = Date.now();
+  console.log('Starting API call at:', new Date().toISOString());
 
   try {
+    // Resize and compress images before sending
+    const resizedFrontImage = await ImageResizer.createResizedImage(
+      frontImage,
+      800,    // width
+      1200,   // height
+      'JPEG',
+      70,     // quality (0-100)
+      0,      // rotation
+    );
+
+    const resizedBackImage = await ImageResizer.createResizedImage(
+      backImage,
+      800,    // width
+      1200,   // height
+      'JPEG',
+      70,     // quality (0-100)
+      0,      // rotation
+    );
+
+    console.log('Images resized successfully');
+
+    const formData = new FormData();
+
+    // Add front image
+    formData.append('frontKey', {
+      uri: resizedFrontImage.uri,
+      type: 'image/jpeg',
+      name: 'front_image.jpg',
+    });
+
+    // Add back image
+    formData.append('backKey', {
+      uri: resizedBackImage.uri,
+      type: 'image/jpeg',
+      name: 'back_image.jpg',
+    });
+
+    console.log('Sending request to API...');
     const response = await axios.post(URL, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
+      // Add timeout and other axios configs
+      timeout: 30000,
+      maxContentLength: Infinity,
+      maxBodyLength: Infinity,
     });
 
-
-    // Check if the response is successful
-    // if (!response.ok) {
-    //   throw new Error(`HTTP error! Status: ${response.status}`);
-    // }
-
-
-    console.log('Response:', response.data.key_id);
+    const endTime = Date.now();
+    const duration = (endTime - startTime) / 1000;
+    console.log(`API Response received. Total time taken: ${duration} seconds`);
+    
+    // Clean up temporary resized images
+    await RNFS.unlink(resizedFrontImage.path).catch(err => console.log(err));
+    await RNFS.unlink(resizedBackImage.path).catch(err => console.log(err));
+    
     const parsedData = JSON.parse(response.data.data);
-    const keyId = response.data.key_id;
     return {
       parsedData,
-      keyId,
+      keyId: response.data.key_id,
+      duration
     };
   } catch (error) {
-    console.error('Error:', error);
+    const endTime = Date.now();
+    const duration = (endTime - startTime) / 1000;
+    console.error('Error in API call. Time taken before error:', duration, 'seconds');
+    console.error('Error details:', error.message);
+    throw error;
   }
 };
 
