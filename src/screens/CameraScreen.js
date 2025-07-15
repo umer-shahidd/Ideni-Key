@@ -27,7 +27,7 @@ const getOrientation = () => {
   };
 
 // Add zoom step constant at the top with other constants
-const ZOOM_STEP = 0.01; // Smaller step for smoother zoom
+const ZOOM_STEP = Platform.OS === 'android' ? 0.01 : 0.001; // Smaller step for smoother zoom
 const MAX_ZOOM = 0.2;    // Limit maximum zoom to prevent extreme jumps
 
 const CameraScreen = () => {
